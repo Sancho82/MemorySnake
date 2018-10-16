@@ -1,6 +1,6 @@
 const table = require('./node_modules/table');
-const readlinesync = require('./node_modules/readline-sync');
-const axel = require('./node_modules/axel');
+// const readlinesync = require('./node_modules/readline-sync');
+// const axel = require('./node_modules/axel');
 
 let difficultyLevel = 3;
 
@@ -28,16 +28,26 @@ const startingTableGenerator = () => {
   console.log(table.table(startingTable));
 };
 
+const placeChecker = (a, b) => {
+  if (startingTable[a][b] === '█') {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+let c = 1;
+
 const numberPusher = () => {
-  for (let i = 0; i < difficultyLevel; i++) {
+  while (c <= difficultyLevel) {
     let x = Math.floor(Math.random() * difficultyLevel);
     let y = Math.floor(Math.random() * difficultyLevel);
-    const placer = () => {
-      if (startingTable[x][y] !== '█') {
-        startingTable[x][y] = i + 1;
-      }
-    };
-    placer();
+    if (placeChecker(x, y)) {
+      startingTable[x][y] = c;
+      c++;
+    } else {
+      numberPusher();
+    }
   }
   console.log(table.table(startingTable));
 };
