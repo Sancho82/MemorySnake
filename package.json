@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axel": "0.0.3",
+    "console-clear": "^1.1.1",
     "readline-sync": "^1.4.9",
     "table": "^5.1.0"
   }
