@@ -1,21 +1,30 @@
 const table = require('./node_modules/table');
-// const readlinesync = require('./node_modules/readline-sync');
+const readlinesync = require('./node_modules/readline-sync');
 // const axel = require('./node_modules/axel');
 
-let difficultyLevel = 3;
+const mapSize = 7;
+let difficultyLevel;
+
+const intro = () => {
+  console.log('Welcome to Memorysnake!');
+};
+
+const difficultySetter = () => {
+  const d = readlinesync.question('Please set difficulty level (1 - 12): ');
+  difficultyLevel = d;
+};
 
 const startingObject = [];
-
 let startingTable = [];
 
 const startingObjectGenerator = () => {
-  for (let i = 0; i < difficultyLevel; i++) {
+  for (let i = 0; i < mapSize; i++) {
     startingObject.push([]);
-    for (let j = 0; j < difficultyLevel; j++) {
+    for (let j = 0; j < mapSize; j++) {
       startingObject[i].push({element: '█'});
     }
   }
-  console.log(startingObject);
+  // console.log(startingObject);
 };
 
 const startingTableGenerator = () => {
@@ -25,7 +34,7 @@ const startingTableGenerator = () => {
       startingTable[i].push(startingObject[i][j].element);
     }
   }
-  console.log(table.table(startingTable));
+  // console.log(table.table(startingTable));
 };
 
 const placeChecker = (a, b) => {
@@ -40,8 +49,8 @@ let c = 1;
 
 const numberPusher = () => {
   while (c <= difficultyLevel) {
-    let x = Math.floor(Math.random() * difficultyLevel);
-    let y = Math.floor(Math.random() * difficultyLevel);
+    let x = Math.floor(Math.random() * mapSize);
+    let y = Math.floor(Math.random() * mapSize);
     if (placeChecker(x, y)) {
       startingTable[x][y] = c;
       c++;
@@ -52,6 +61,8 @@ const numberPusher = () => {
   console.log(table.table(startingTable));
 };
 
+intro();
+difficultySetter();
 startingObjectGenerator();
 startingTableGenerator();
 numberPusher();
