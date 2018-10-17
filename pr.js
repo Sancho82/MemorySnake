@@ -1,14 +1,15 @@
-const table = require('./node_modules/table');
+const table = require('table');
 
-let tableSize = 7;
+let difficultyLevel = 3;
 
 const startingObject = [];
-const startingTable = [];
+
+let startingTable = [];
 
 const startingObjectGenerator = () => {
-  for (let i = 0; i < tableSize; i++) {
+  for (let i = 0; i < difficultyLevel; i++) {
     startingObject.push([]);
-    for (let j = 0; j < tableSize; j++) {
+    for (let j = 0; j < difficultyLevel; j++) {
       startingObject[i].push({ element: '█' });
     }
   }
@@ -26,4 +27,4 @@ const startingTableGenerator = () => {
 };
 
 startingObjectGenerator();
-startingTableGenerator()
+startingTableGenerator();
