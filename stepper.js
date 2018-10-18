@@ -1,5 +1,5 @@
 const table = require('table');
-//const keypress = require('keypress');
+// const keypress = require('keypress');
 const readline = require('readline-sync');
 const clear = require('axel');
 let tableSize = 7;
@@ -24,47 +24,47 @@ const startingTableGenerator = () => {
       startingTable[i].push(startingObject[i][j].element);
     }
   }
-  //console.log(table.table(startingTable));
+  // console.log(table.table(startingTable));
 };
 
 startingObjectGenerator();
-startingObject[0][0] = { element: "X" };
-startingTableGenerator()
+startingObject[0][0] = { element: 'X' };
+startingTableGenerator();
 
 const moveUp = () => {
-  if (x != 0) {
+  if (x !== 0) {
     [startingTable[x][y], startingTable[x - 1][y]] = [startingTable[x - 1][y], startingTable[x][y]];
     x--;
   }
-}
+};
 
 const moveDown = () => {
-  if (x != 6) {
+  if (x !== 6) {
     [startingTable[x][y], startingTable[x + 1][y]] = [startingTable[x + 1][y], startingTable[x][y]];
     x++;
   }
-}
+};
 
 const moveRight = () => {
-  if (y != 6) {
+  if (y !== 6) {
     [startingTable[x][y + 1], startingTable[x][y]] = [startingTable[x][y], startingTable[x][y + 1]];
     y++;
   }
-}
+};
 
 const moveLeft = () => {
-  if (y != 0) {
+  if (y !== 0) {
     [startingTable[x][y - 1], startingTable[x][y]] = [startingTable[x][y], startingTable[x][y - 1]];
     y--;
   }
-}
+};
 
 let x = 0;
 let y = 0;
 while (true) {
   clear.clear();
   console.log(table.table(startingTable));
-  let direction = readline.question("?")
+  let direction = readline.question('?');
   switch (direction) {
     case ('[A'):
       moveUp();
@@ -79,7 +79,6 @@ while (true) {
       moveLeft();
       break;
     default:
-      console.log("???");
-      return;
+      console.log('???');
   }
 }
