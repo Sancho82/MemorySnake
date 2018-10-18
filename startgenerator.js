@@ -58,7 +58,6 @@ const numberPusher = () => {
       numberPusher();
     }
   }
-  console.log(table.table(startingTable));
 };
 
 intro();
@@ -66,3 +65,4 @@ difficultySetter();
 startingObjectGenerator();
 startingTableGenerator();
 numberPusher();
+console.log(table.table(startingTable));
