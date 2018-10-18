@@ -1,15 +1,25 @@
-const keypress = require('keypress');
- 
-// make `process.stdin` begin emitting "keypress" events
-keypress(process.stdin);
- 
-// listen for the "keypress" event
-process.stdin.on('keypress', function (ch, key) {
-  console.log('got "keypress"', key);
-  if (key && key.ctrl && key.name == 'c') {
-    process.stdin.pause();
+const table = require('table');
+
+let tableElements = {
+  brush: '█',
+  star: '*',
+  cursor: 'X',
+  number: 0
+};
+
+let startingTable = [];
+let tableSize = 7;
+
+const startingTableGenerator = () => {
+  for (let x = 0; x < tableSize; x++) {
+    startingTable.push([]);
+    for (let y = 0; y < tableSize; y++) {
+      startingTable[x].push(tableElements.brush);
+    }
   }
-});
- 
-process.stdin.setRawMode(true);
-process.stdin.resume();
+};
+
+startingTableGenerator();
+startingTable[0][0] = tableElements.cursor;
+let tableView = table.table(startingTable);
+console.log(tableView);

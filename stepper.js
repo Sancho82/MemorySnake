@@ -1,11 +1,12 @@
 const table = require('table');
-//const keypress = require('keypress');
+const keypress = require('keypress');
 const readline = require('readline-sync');
 const clear = require('axel');
 let tableSize = 7;
+let up = '[A';
 
-const startingObject = [];
-const startingTable = [];
+let startingObject = [];
+let startingTable = [];
 
 const startingObjectGenerator = () => {
   for (let i = 0; i < tableSize; i++) {
@@ -22,13 +23,21 @@ const startingTableGenerator = () => {
     startingTable.push([]);
     for (let j = 0; j < startingObject[i].length; j++) {
       startingTable[i].push(startingObject[i][j].element);
-    }
   }
+}
   //console.log(table.table(startingTable));
 };
 
+const placeChecker = (x, y) => {
+  if (startingTable[x][y] === '█') {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 startingObjectGenerator();
-startingObject[0][0] = { element: "X" };
+startingObject[0][0] = { element: 'X' };
 startingTableGenerator()
 
 const moveUp = () => {
@@ -62,9 +71,9 @@ const moveLeft = () => {
 let x = 0;
 let y = 0;
 while (true) {
-  clear.clear();
+  //clear.clear();
   console.log(table.table(startingTable));
-  let direction = readline.question("?")
+  let direction = readline.question("?");
   switch (direction) {
     case ('[A'):
       moveUp();
