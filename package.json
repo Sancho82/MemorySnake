@@ -12,6 +12,22 @@
     "axel": "0.0.3",
     "console-clear": "^1.1.1",
     "readline-sync": "^1.4.9",
+  "main": "playing_field.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sancho82/MemorySnake.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sancho82/MemorySnake/issues"
+  },
+  "homepage": "https://github.com/Sancho82/MemorySnake#readme",
+  "dependencies": {
+    "axel": "0.0.3",
     "table": "^5.1.0"
   }
 }
