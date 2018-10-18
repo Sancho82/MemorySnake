@@ -39,25 +39,26 @@ while (true) {
   console.log(table.table(startingTable));
   let direction = readline.question("?")
   switch (direction) {
-    case ('u'): 
+    case ('[A'): 
       if (x != 0) {
         [startingTable[x][y], startingTable[x - 1][y]] = [startingTable[x - 1][y], startingTable[x][y]];
         x--;     //array matching
       }
       break;
-    case ('d'): 
+    case ('[B'): 
       if (x != 6) {
         [startingTable[x][y], startingTable[x + 1][y]] = [startingTable[x + 1][y], startingTable[x][y]];
         x++;
+
       }
       break;
-    case ('r'): 
+    case ('[C'): 
       if (y != 6) {
         [startingTable[x][y + 1], startingTable[x][y]] = [startingTable[x][y], startingTable[x][y + 1]];
         y++;
       }
       break;
-    case ('l'): 
+    case ('[D'): 
       if (y != 0) {
         [startingTable[x][y - 1], startingTable[x][y]] = [startingTable[x][y], startingTable[x][y - 1]];
         y--;
