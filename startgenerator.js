@@ -51,12 +51,12 @@ const numberPusher = () => {
   while (c <= difficultyLevel) {
     let x = Math.floor(Math.random() * mapSize);
     let y = Math.floor(Math.random() * mapSize);
-    if (placeChecker(x, y)) {
+    if ((x !== 0 || y !== 0) && placeChecker(x, y)) {
       startingTable[x][y] = c;
-      c++;
     } else {
       numberPusher();
     }
+    c++;
   }
 };
 
