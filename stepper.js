@@ -46,13 +46,13 @@ while (true) {
       }
       break;
     case ('[B'): 
-      if (x != 6) {
+      if (x != tableSize-1) {
         [startingTable[x][y], startingTable[x + 1][y]] = [startingTable[x + 1][y], startingTable[x][y]];
         x++;
       }
       break;
     case ('[C'): 
-      if (y != 6) {
+      if (y != tableSize-1) {
         [startingTable[x][y + 1], startingTable[x][y]] = [startingTable[x][y], startingTable[x][y + 1]];
         y++;
       }
