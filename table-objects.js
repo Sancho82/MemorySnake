@@ -7,44 +7,66 @@ const clear = require('console-clear');
 
 //ctx.clear();
 
-let coordinate = 0;
+//let coordinate = [0, 0];
+  
 
 const tableBoxes = [
-  {key: 'X'},
-  {key: ' '},
-  {key: ' '},
-  {key: ' '}
+  {key: 'X'}, {key: ' '}, {key: ' '}, {key: ' '}
 ];
 
 let tableDatas = [];
-let x = '';
+let x = 0;
+let y = 0;
+let temp = '';
 
-tableDatas.push([tableBoxes[0].key, tableBoxes[1].key, tableBoxes[2].key]);
+const arrayPusher = () => {
+  tableDatas.push([tableBoxes[0].key, tableBoxes[1].key, tableBoxes[2].key, tableBoxes[3].key]);
+};
+
+const stepperRight = () => {
+  x++;
+  tableDatas = [];
+  temp = tableBoxes[x].key;
+  tableBoxes[x].key = tableBoxes[x-1].key;
+  tableBoxes[x-1].key = temp;
+};
+
+const stepperLeft = () => {
+  x--;
+  tableDatas = [];
+  temp = tableBoxes[x].key;
+  tableBoxes[x].key = tableBoxes[x+1].key;
+  tableBoxes[x+1].key = temp;
+};
+
+arrayPusher();
 
 let tableView = table.table(tableDatas);
 
 console.log(tableView);
 
-function stepperRight() {
-  coordinate++;
-  tableDatas = [];
-  x = tableBoxes[coordinate].key;
-  tableBoxes[coordinate].key = tableBoxes[coordinate + 1].key;
-  tableBoxes[coordinate + 1].key = x;
-  for (i = 0; i < tableBoxes.length; i++) {
-    tableDatas.push([tableBoxes[i].key]);
-  }
+const tableConsole = () => {
   tableView = 0;
   tableView = table.table(tableDatas);
   clear();
   console.log(tableView);
-}
+};
 
 while (true) {
-  let location = readlineSync.question();
-  if (location === '[C') {
+  let keyboard = readlineSync.question();
+  if (keyboard === '[C') {
     stepperRight();
+    arrayPusher();
+    tableConsole();
+  }
+  if (keyboard === '[C') {
+    stepperLeft();
+    arrayPusher();
+    tableConsole();
   } else {
     break;
   }
 }
+
+//  for (let i = 0; i < tableBoxes.length; i++) {
+//    tableDatas.push([tableBoxes[i].key]);
