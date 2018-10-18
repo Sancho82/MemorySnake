@@ -1,4 +1,4 @@
-const table = require('./node_modules/table'),
+const table = require('./node_modules/table');
 
 const obj = {
   key1: 1,
@@ -6,4 +6,4 @@ const obj = {
   key3: 3
 };
 
-console.log(table.table(obj));
+console.log(Object.values(obj));
