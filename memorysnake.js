@@ -22,9 +22,11 @@ let startingElements = {
   brush: '█',
   star: '*',
   cursor: 'X',
+  empty: ' ',
   number: 0
 };
 let startingTable = [];
+let cloneTable = [];
 
 const startingTableGenerator = () => {
   for (let i = 0; i < mapSize; i++) {
@@ -35,8 +37,17 @@ const startingTableGenerator = () => {
   }
 };
 
+const cloneTableGenerator = () => {
+  for (let i = 0; i < mapSize; i++) {
+    cloneTable.push([]);
+    for (let j = 0; j < mapSize; j++) {
+      cloneTable[i].push(startingElements.brush);
+    }
+  }
+};
+
 const placeChecker = (a, b) => {
-  if (startingTable[a][b] === '█') {
+  if (startingTable[a][b] === startingElements.brush || cloneTable[a][b] === startingElements.brush) {
     return true;
   } else {
     return false;
@@ -54,13 +65,16 @@ const cursorSwitcher = () => {
 };
 
 let c = 1;
+let startingTableIndexes = [];
 
 const numberPusher = () => {
   while (c <= difficultyLevel) {
     let x = Math.floor(Math.random() * mapSize);
     let y = Math.floor(Math.random() * mapSize);
     if ((x !== 0 || y !== 0) && placeChecker(x, y)) {
-      startingTable[x][y] = c;
+      startingTable[y][x] = c;
+      startingTableIndexes.push(x, y);
+      cloneTable[y][x] = startingElements.empty;
     } else {
       numberPusher();
     }
@@ -102,7 +116,8 @@ const moveLeft = () => {
 const controller = () => {
   while (true) {
     console.clear();
-    console.log(table.table(startingTable));
+    console.log(table.table(cloneTable));
+    console.log(startingTableIndexes);
     let direction = readline.question('?');
     switch (direction) {
       case ('[A'):
@@ -126,8 +141,7 @@ const controller = () => {
 intro();
 difficultySetter();
 startingTableGenerator();
+cloneTableGenerator();
 startingPointSetter(startingElements.cursor);
 numberPusher();
 controller();
-
-console.log(table.table(startingTable));
