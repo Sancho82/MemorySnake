@@ -1,8 +1,9 @@
+const keypress = require('keypress');
 const table = require('table');
-//const keypress = require('keypress');
 const readline = require('readline-sync');
 const clear = require('axel');
 let tableSize = 7;
+keypress(process.stdin);
 
 const startingObject = [];
 const startingTable = [];
@@ -39,14 +40,22 @@ const moveUp = () => {
 }
 
 const moveDown = () => {
-  if (x != 6) {
+  if (x != tablesize -1) {
     [startingTable[x][y], startingTable[x + 1][y]] = [startingTable[x + 1][y], startingTable[x][y]];
     x++;
   }
 }
 
 const moveRight = () => {
-  if (y != 6) {
+  if (y != tableSize -1) {
+    process.stdin.on('keypress', function (ch, key) {
+      console.log('got "keypress"', key);
+      if (key && key.ctrl && key.name == 'c') {
+        process.stdin.pause();
+        process.stdin.setRawMode(true);
+        process.stdin.resume();
+      }
+    });
     [startingTable[x][y + 1], startingTable[x][y]] = [startingTable[x][y], startingTable[x][y + 1]];
     y++;
   }
@@ -62,9 +71,9 @@ const moveLeft = () => {
 let x = 0;
 let y = 0;
 while (true) {
-  clear.clear();
+  clear.clear(startingTable);
   console.log(table.table(startingTable));
-  let direction = readline.question("?")
+  let direction 
   switch (direction) {
     case ('[A'):
       moveUp();
