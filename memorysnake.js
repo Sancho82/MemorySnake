@@ -15,16 +15,17 @@ const difficultySetter = () => {
 };
 
 const startingPointSetter = (a) => {
-  startingTable[0][0] = a;
+  cloneTable[0][0] = a;
 };
 
 let startingElements = {
   brush: '█',
   star: '*',
   cursor: 'X',
-  number: 0
+  empty: ' '
 };
 let startingTable = [];
+let cloneTable = [];
 
 const startingTableGenerator = () => {
   for (let i = 0; i < mapSize; i++) {
@@ -35,8 +36,17 @@ const startingTableGenerator = () => {
   }
 };
 
+const cloneTableGenerator = () => {
+  for (let i = 0; i < mapSize; i++) {
+    cloneTable.push([]);
+    for (let j = 0; j < mapSize; j++) {
+      cloneTable[i].push(startingElements.brush);
+    }
+  }
+};
+
 const placeChecker = (a, b) => {
-  if (startingTable[a][b] === '█') {
+  if ((startingTable[a][b] === startingElements.brush) || (cloneTable[a][b] === startingElements.brush)) {
     return true;
   } else {
     return false;
@@ -54,13 +64,16 @@ const cursorSwitcher = () => {
 };
 
 let c = 1;
+let startingTableIndexes = [];
 
 const numberPusher = () => {
   while (c <= difficultyLevel) {
     let x = Math.floor(Math.random() * mapSize);
     let y = Math.floor(Math.random() * mapSize);
     if ((x !== 0 || y !== 0) && placeChecker(x, y)) {
-      startingTable[x][y] = c;
+      startingTable[y][x] = c;
+      startingTableIndexes.push(x, y);
+      cloneTable[y][x] = startingElements.empty;
     } else {
       numberPusher();
     }
@@ -73,28 +86,28 @@ let y = 0;
 
 const moveUp = () => {
   if (x !== 0) {
-    [startingTable[x][y], startingTable[x - 1][y]] = [startingTable[x - 1][y], startingTable[x][y]];
+    [cloneTable[x][y], cloneTable[x - 1][y]] = [cloneTable[x - 1][y], cloneTable[x][y]];
     x--;
   }
 };
 
 const moveDown = () => {
   if (x !== 6) {
-    [startingTable[x][y], startingTable[x + 1][y]] = [startingTable[x + 1][y], startingTable[x][y]];
+    [cloneTable[x][y], cloneTable[x + 1][y]] = [cloneTable[x + 1][y], cloneTable[x][y]];
     x++;
   }
 };
 
 const moveRight = () => {
   if (y !== 6) {
-    [startingTable[x][y + 1], startingTable[x][y]] = [startingTable[x][y], startingTable[x][y + 1]];
+    [cloneTable[x][y + 1], cloneTable[x][y]] = [cloneTable[x][y], cloneTable[x][y + 1]];
     y++;
   }
 };
 
 const moveLeft = () => {
   if (y !== 0) {
-    [startingTable[x][y - 1], startingTable[x][y]] = [startingTable[x][y], startingTable[x][y - 1]];
+    [cloneTable[x][y - 1], cloneTable[x][y]] = [cloneTable[x][y], cloneTable[x][y - 1]];
     y--;
   }
 };
@@ -102,7 +115,8 @@ const moveLeft = () => {
 const controller = () => {
   while (true) {
     console.clear();
-    console.log(table.table(startingTable));
+    console.log(table.table(cloneTable));
+    console.log(startingTableIndexes);
     let direction = readline.question('?');
     switch (direction) {
       case ('[A'):
@@ -126,8 +140,21 @@ const controller = () => {
 intro();
 difficultySetter();
 startingTableGenerator();
+cloneTableGenerator();
 startingPointSetter(startingElements.cursor);
 numberPusher();
-controller();
+//controller();
+console.log(table.table(startingTable));
+
+let go = readline.question('Mehet?');
+if (go === 'g') {
+  //intro();
+  //difficultySetter();
+  startingTableGenerator();
+  cloneTableGenerator();
+  startingPointSetter(startingElements.cursor);
+  numberPusher();
+  controller();
+}
 
 console.log(table.table(startingTable));
