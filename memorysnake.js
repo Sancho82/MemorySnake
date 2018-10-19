@@ -15,7 +15,7 @@ const difficultySetter = () => {
 };
 
 const startingPointSetter = (a) => {
-  startingTable[0][0] = a;
+  cloneTable[0][0] = a;
 };
 
 let startingElements = {
