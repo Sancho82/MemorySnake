@@ -1,6 +1,6 @@
-const table = require('./node_modules/table');
-const readline = require('./node_modules/readline-sync');
-const clear = require('./node_modules/axel');
+const table = require('table');
+const readline = require('readline-sync');
+const axel = require('axel');
 
 const mapSize = 7;
 let difficultyLevel;
