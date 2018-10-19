@@ -87,28 +87,28 @@ let y = 0;
 
 const moveUp = () => {
   if (x !== 0) {
-    [startingTable[x][y], startingTable[x - 1][y]] = [startingTable[x - 1][y], startingTable[x][y]];
+    [cloneTable[x][y], cloneTable[x - 1][y]] = [cloneTable[x - 1][y], cloneTable[x][y]];
     x--;
   }
 };
 
 const moveDown = () => {
   if (x !== 6) {
-    [startingTable[x][y], startingTable[x + 1][y]] = [startingTable[x + 1][y], startingTable[x][y]];
+    [cloneTable[x][y], cloneTable[x + 1][y]] = [cloneTable[x + 1][y], cloneTable[x][y]];
     x++;
   }
 };
 
 const moveRight = () => {
   if (y !== 6) {
-    [startingTable[x][y + 1], startingTable[x][y]] = [startingTable[x][y], startingTable[x][y + 1]];
+    [cloneTable[x][y + 1], cloneTable[x][y]] = [cloneTable[x][y], cloneTable[x][y + 1]];
     y++;
   }
 };
 
 const moveLeft = () => {
   if (y !== 0) {
-    [startingTable[x][y - 1], startingTable[x][y]] = [startingTable[x][y], startingTable[x][y - 1]];
+    [cloneTable[x][y - 1], cloneTable[x][y]] = [cloneTable[x][y], cloneTable[x][y - 1]];
     y--;
   }
 };
