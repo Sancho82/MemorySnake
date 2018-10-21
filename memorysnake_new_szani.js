@@ -72,7 +72,7 @@ const numberPusher = () => {
 };
 
 const equalityChecker = () => {
-  let guess = readline.question('Type guess in: ');
+  let guess = readline.question('Type in your guess: ');
   if (parseInt(guess) === startingTable[x][y]) {
     return true;
   } else {
@@ -124,11 +124,6 @@ const moveRight = () => {
 };
 
 const controller = () => {
-  console.clear();
-  console.log(table.table(startingTable));
-  console.log(table.table(cloneTable));
-  // console.log(startingTableIndexes);
-  // console.log(y, x);
   let direction = readline.question('?');
   switch (direction) {
     case ('[A'):
@@ -150,16 +145,18 @@ const controller = () => {
 
 const gamePlay = () => {
   while (true) {
-    controller();
+    console.clear();
+    console.log(table.table(startingTable));
+    console.log(table.table(cloneTable));
     if (startingTable[x][y] !== startingElements.brush) {
       if (equalityChecker()) {
         cloneTable[x][y] = startingTable[x][y];
-        gamePlay();
       } else {
         console.log('Game Over!!!');
         process.exit(1);
       }
     }
+    controller();
   }
 };
 
