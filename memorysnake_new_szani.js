@@ -125,7 +125,7 @@ const moveRight = () => {
 
 const controller = () => {
   console.clear();
-  // console.log(table.table(startingTable));
+  console.log(table.table(startingTable));
   console.log(table.table(cloneTable));
   // console.log(startingTableIndexes);
   // console.log(y, x);
@@ -154,6 +154,7 @@ const gamePlay = () => {
     if (startingTable[x][y] !== startingElements.brush) {
       if (equalityChecker()) {
         cloneTable[x][y] = startingTable[x][y];
+        gamePlay();
       } else {
         console.log('Game Over!!!');
         process.exit(1);
