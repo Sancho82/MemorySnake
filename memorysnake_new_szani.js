@@ -5,10 +5,30 @@ const mapSize = 7;
 let difficultyLevel;
 
 const intro = () => {
-  console.log('Welcome to Memorysnake!');
+  let question1 = readline.question('Are you ready?: ');
+  if (question1 === 'y') {
+    console.log('Here are the numbers you need to guess.');
+    console.log(table.table(startingTable));
+    let question2 = readline.question('Ready to proceed?: ');
+    if (question2 === 'y') {
+    } else if (question2 === 'n') {
+      console.log('Ok. Bye!');
+      process.exit(1);
+    } else {
+      console.log('Sorry, I do not understand. Bye!');
+      process.exit(1);
+    }
+  } else if (question1 === 'n') {
+    console.log('Ok. Bye!');
+    process.exit(1);
+  } else {
+    console.log('Please answer y or n.');
+    intro();
+  }
 };
 
 const difficultySetter = () => {
+  console.log('Welcome to Memorysnake!');
   const d = readline.question('Please set difficulty level (1 - 12): ');
   difficultyLevel = d;
 };
@@ -146,7 +166,6 @@ const controller = () => {
 const gamePlay = () => {
   while (true) {
     console.clear();
-    console.log(table.table(startingTable));
     console.log(table.table(cloneTable));
     if (startingTable[x][y] !== startingElements.brush) {
       if (equalityChecker()) {
@@ -161,12 +180,12 @@ const gamePlay = () => {
 };
 
 const game = () => {
-  intro();
   difficultySetter();
   startingTableGenerator();
   cloneTableGenerator();
   startingPointSetter(startingElements.cursor);
   numberPusher();
+  intro();
   gamePlay();
 };
 
