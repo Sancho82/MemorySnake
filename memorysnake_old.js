@@ -1,6 +1,5 @@
 const table = require('table');
 const readline = require('readline-sync');
-const axel = require('axel');
 
 const mapSize = 7;
 let difficultyLevel;
@@ -51,16 +50,6 @@ const placeChecker = (a, b) => {
     return true;
   } else {
     return false;
-  }
-};
-
-const cursorSwitcher = () => {
-  for (let i = 0; i < startingTable.length; i++) {
-    for (let j = 0; j < startingTable[i].length; j++) {
-      if (startingTable[i][j].element === startingElements.brush) {
-        startingTable[i][j].element = startingElements.star;
-      }
-    }
   }
 };
 
