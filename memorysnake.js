@@ -1,11 +1,33 @@
 const table = require('table');
 const readline = require('readline-sync');
+const keypress = require('keypress');
 
 const tableSize = 7;
 let difficultyLevel;
 
 const intro = () => {
-  console.log('Welcome to Memorysnake!');
+  console.log('Welcome to Memorysnake!\n Rules of the Game:\n 1. Try to memorise the position of the numbers on the table\n 2. Start game and try to guess the numbers in the correct order\n 3. Use keyboard arrows to navigate.\n 4. Complete all 6 levels to win the game.');
+  while (true) {
+    let question1 = readline.question('Are you ready?: ');
+    if (question1 === 'y') {
+      console.log('Here are the numbers you need to guess.');
+      console.log(table.table(startingTable));
+      let question2 = readline.question('Ready to proceed?: ');
+      if (question2 === 'y') {
+        break;
+      } else if (question2 === 'n') {
+        console.log('Ok. Bye!');
+        process.exit(1);
+      } else {
+        console.log('Sorry, I do not understand. Please type y or n!');
+      }
+    } else if (question1 === 'n') {
+      console.log('Ok. Bye!');
+      process.exit(1);
+    } else {
+      console.log('Sorry, I do not understand. Please type y or n!');
+    }
+  }
 };
 
 const difficultySetter = () => {
@@ -26,7 +48,7 @@ let startingElements = {
 let startingTable = [];
 let cloneTable = [];
 
-const startingTableGenerator = () => {
+const tableGenerator = () => {
   for (let i = 0; i < tableSize; i++) {
     startingTable.push([]);
     cloneTable.push([]);
@@ -48,10 +70,14 @@ const placeChecker = (a, b) => {
 let ascendingNumber = 1;
 let startingTableIndexes = [];
 
+const getRndInteger = (min, max) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
 const numberPusher = () => {
   while (ascendingNumber <= difficultyLevel) {
-    let y = Math.floor(Math.random() * tableSize);
-    let x = Math.floor(Math.random() * tableSize);
+    let y = getRndInteger(0, tableSize);
+    let x = getRndInteger(0, tableSize);
     if ((y !== 0 || x !== 0) && placeChecker(y, x)) {
       startingTable[y][x] = ascendingNumber;
       startingTableIndexes.push(y, x);
@@ -67,21 +93,19 @@ const equalityChecker = (integerNumber) => {
   if (integerNumber === startingTable[y][x]) {
     cloneTable[y][x] = startingTable[y][x];
     numberCounter++;
-  } else {
-    cloneTable[y][x] = cloneTable[y][x];
   }
 };
 
-const isWin = (integerNumber) => {
-  if (integerNumber === (startingTableIndexes.length / 2)) {
+const numberChecker = (integerNumber) => {
+  if (integerNumber > 0 && integerNumber < 10) {
     return true;
   } else {
     return false;
   }
 };
 
-const numberChecker = (integerNumber) => {
-  if (integerNumber > 0 && integerNumber < 10) {
+const winCheck = (integerNumber) => {
+  if (integerNumber === (startingTableIndexes.length / 2)) {
     return true;
   } else {
     return false;
@@ -108,8 +132,6 @@ const moveUp = () => {
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y - 1][x] === startingElements.empty)) {
       cloneTable[y - 1][x] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-    } else {
-      [cloneTable[y][x], cloneTable[y - 1][x]] = [cloneTable[y - 1][x], cloneTable[y][x]];
     }
     y--;
   }
@@ -132,8 +154,6 @@ const moveDown = () => {
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y + 1][x] === startingElements.empty)) {
       cloneTable[y + 1][x] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-    } else {
-      [cloneTable[y][x], cloneTable[y + 1][x]] = [cloneTable[y + 1][x], cloneTable[y][x]];
     }
     y++;
   }
@@ -156,8 +176,6 @@ const moveRight = () => {
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y][x + 1] === startingElements.empty)) {
       cloneTable[y][x + 1] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-    } else {
-      [cloneTable[y][x + 1], cloneTable[y][x]] = [cloneTable[y][x], cloneTable[y][x + 1]];
     }
     x++;
   }
@@ -180,8 +198,6 @@ const moveLeft = () => {
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y][x - 1] === startingElements.empty)) {
       cloneTable[y][x - 1] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-    } else {
-      [cloneTable[y][x - 1], cloneTable[y][x]] = [cloneTable[y][x], cloneTable[y][x - 1]];
     }
     x--;
   }
@@ -191,9 +207,7 @@ const controller = () => {
   while (true) {
     console.clear();
     console.log(table.table(cloneTable));
-    // console.log(startingTableIndexes);
-    // console.log(startingTableIndexes.length / 2);
-    console.log(numberCounter);
+    // console.log(numberCounter);
     let direction = readline.question('?');
     let integer = parseInt(direction);
     if (direction === '[A') {
@@ -206,7 +220,7 @@ const controller = () => {
       moveLeft();
     } else if (numberChecker(integer)) {
       equalityChecker(integer);
-      if (isWin(numberCounter)) {
+      if (winCheck(numberCounter)) {
         console.clear();
         console.log(table.table(cloneTable));
         console.log('Congratulation! Go the next level! \n');
@@ -218,18 +232,13 @@ const controller = () => {
   }
 };
 
-intro();
-difficultySetter();
-startingTableGenerator();
-startingPointSetter(startingElements.cursor);
-numberPusher();
-console.log(table.table(startingTable));
-
-let go = readline.question('Are you ready? Yes "y" or exit "e": ');
-if (go === 'y') {
+const game = () => {
+  difficultySetter();
+  tableGenerator();
   startingPointSetter(startingElements.cursor);
   numberPusher();
+  intro();
   controller();
-} else {
-  console.log('Bye!');
-}
+};
+
+game();
