@@ -1,6 +1,5 @@
 const table = require('table');
 const readline = require('readline-sync');
-const axel = require('axel');
 
 const tableSize = 7;
 let difficultyLevel;
@@ -30,23 +29,16 @@ let cloneTable = [];
 const startingTableGenerator = () => {
   for (let i = 0; i < tableSize; i++) {
     startingTable.push([]);
-    for (let j = 0; j < tableSize; j++) {
-      startingTable[i].push(startingElements.brush);
-    }
-  }
-};
-
-const cloneTableGenerator = () => {
-  for (let i = 0; i < tableSize; i++) {
     cloneTable.push([]);
     for (let j = 0; j < tableSize; j++) {
+      startingTable[i].push(startingElements.brush);
       cloneTable[i].push(startingElements.brush);
     }
   }
 };
 
 const placeChecker = (a, b) => {
-  if ((startingTable[a][b] === startingElements.brush) || (cloneTable[a][b] === startingElements.brush)) {
+  if (startingTable[a][b] === startingElements.brush) {
     return true;
   } else {
     return false;
@@ -64,10 +56,8 @@ const numberPusher = () => {
       startingTable[y][x] = ascendingNumber;
       startingTableIndexes.push(y, x);
       cloneTable[y][x] = startingElements.empty;
-    } else {
-      numberPusher();
+      ascendingNumber++;
     }
-    ascendingNumber++;
   }
 };
 
@@ -91,11 +81,11 @@ const isWin = (integerNumber) => {
 };
 
 const numberChecker = (integerNumber) => {
-  if ((0 < integerNumber) && (integerNumber < 10)) {
+  if (integerNumber > 0 && integerNumber < 10) {
     return true;
   } else {
     return false;
-  }  
+  }
 };
 
 let x = 0;
@@ -107,7 +97,7 @@ const moveUp = () => {
       cloneTable[y - 1][x] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
     } else if ((cloneTable[y][x] === startingElements.star) && (cloneTable[y - 1][x] === startingElements.empty)) {
-      cloneTable[y -1][x] = startingElements.star;
+      cloneTable[y - 1][x] = startingElements.star;
       cloneTable[y][x] = startingElements.empty;
     } else if ((cloneTable[y][x] === startingElements.star) && (cloneTable[y - 1][x] === startingTable[y - 1][x])) {
       cloneTable[y - 1][x] = startingElements.cursor;
@@ -231,7 +221,6 @@ const controller = () => {
 intro();
 difficultySetter();
 startingTableGenerator();
-cloneTableGenerator();
 startingPointSetter(startingElements.cursor);
 numberPusher();
 console.log(table.table(startingTable));
