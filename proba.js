@@ -1,25 +1,23 @@
-const table = require('table');
-
-let tableElements = {
-  brush: '█',
-  star: '*',
-  cursor: 'X',
-  number: 0
-};
-
-let startingTable = [];
-let tableSize = 7;
-
-const startingTableGenerator = () => {
-  for (let x = 0; x < tableSize; x++) {
-    startingTable.push([]);
-    for (let y = 0; y < tableSize; y++) {
-      startingTable[x].push(tableElements.brush);
-    }
+const keypress = require('keypress');
+ 
+// make `process.stdin` begin emitting "keypress" events
+keypress(process.stdin);
+ 
+// listen for the "keypress" event
+process.stdin.on('keypress', function (key) {
+  if (key === 'u') {
+    console.log('Go up');
+  } else if (key === 'd') {
+    console.log('Go down');
+  } else if (key === 'r') {
+    console.log('Go right');
+  } else if (key === 'l') {
+    console.log('Go left');
+  } else {
+    console.log('Exit');
+    process.stdin.pause();
   }
-};
-
-startingTableGenerator();
-startingTable[0][0] = tableElements.cursor;
-let tableView = table.table(startingTable);
-console.log(tableView);
+});
+ 
+process.stdin.setRawMode(true);
+process.stdin.resume();
