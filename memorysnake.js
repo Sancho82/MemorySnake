@@ -3,13 +3,17 @@ const readline = require('readline-sync');
 const keypress = require('keypress');
 
 const tableSize = 7;
-let difficultyLevel;
+let difficultyLevel = 1;
+const maxDifficultyLevel = 7;
 
 const intro = () => {
-  console.log('Welcome to Memorysnake!\n Rules of the Game:\n 1. Try to memorise the position of the numbers on the table\n 2. Start game and try to guess the numbers in the correct order\n 3. Use keyboard arrows to navigate.\n 4. Complete all 6 levels to win the game.');
+  if (difficultyLevel === 1) {
+    console.log('Welcome to Memorysnake!\n Rules of the Game:\n 1. Try to memorise the position of the numbers on the table\n 2. Start game and try to guess the numbers in the correct order\n 3. Use keyboard arrows to navigate.\n 4. Complete all 7 levels to win the game.');
+  }
   while (true) {
     let question1 = readline.question('Are you ready?: ');
     if (question1 === 'y') {
+      console.clear();
       console.log('Here are the numbers you need to guess.');
       console.log(table.table(startingTable));
       let question2 = readline.question('Ready to proceed?: ');
@@ -31,8 +35,7 @@ const intro = () => {
 };
 
 const difficultySetter = () => {
-  const d = readline.question('Please set difficulty level (1 - 12): ');
-  difficultyLevel = d;
+  difficultyLevel++;
 };
 
 const startingPointSetter = (a) => {
@@ -45,6 +48,7 @@ let startingElements = {
   cursor: 'X',
   empty: ' '
 };
+
 let startingTable = [];
 let cloneTable = [];
 
@@ -75,7 +79,7 @@ const getRndInteger = (min, max) => {
 };
 
 const numberPusher = () => {
-  while (ascendingNumber <= difficultyLevel) {
+  while (ascendingNumber <= difficultyLevel + 2) {
     let y = getRndInteger(0, tableSize);
     let x = getRndInteger(0, tableSize);
     if ((y !== 0 || x !== 0) && placeChecker(y, x)) {
@@ -207,6 +211,7 @@ const controller = () => {
   while (true) {
     console.clear();
     console.log(table.table(cloneTable));
+    // console.log(difficultyLevel);
     // console.log(numberCounter);
     let direction = readline.question('?');
     let integer = parseInt(direction);
@@ -233,12 +238,19 @@ const controller = () => {
 };
 
 const game = () => {
-  difficultySetter();
-  tableGenerator();
-  startingPointSetter(startingElements.cursor);
-  numberPusher();
-  intro();
-  controller();
+  while (difficultyLevel <= maxDifficultyLevel) {
+    tableGenerator();
+    startingPointSetter(startingElements.cursor);
+    numberPusher();
+    intro();
+    controller();
+    difficultyLevel++;
+    ascendingNumber = 1;
+    numberCounter = 0;
+    startingTableIndexes = [];
+    startingTable = [];
+    cloneTable = [];
+  }
 };
 
 game();
