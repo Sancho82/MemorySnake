@@ -1,7 +1,8 @@
 const table = require('table');
-const readlineSync = require('readline-sync');
+const readline = require('readline-sync');
+const keypress = require('keypress');
 
-let fieldSize = 6;
+let fieldSize = 7;
 let taskTable = [];
 let guessTable = [];
 
@@ -37,15 +38,84 @@ const taskNumbers = () => {
       i++;
       console.clear();
       console.log(table.table(taskTable));
-      console.log(guessIndex);
     }
   }
 };
 
+let x = 0;
+let y = 0;
+let guessNum = 0; 
+
 const guess = () => {
-  guessTable[0][0] = X;
-// to be continued
+  guessNum = readline.question('Guess the number: ');
+  return guessNum;
+}
+
+// move-ok nem működnek!!!
+const moveUp = () => {
+  if (y !== 0) {
+    if (guessTable[y][x] === 'X' && guessTable[y - 1][x] === ' ') {
+      guessTable[y - 1][x] = 'X';
+      guessTable[y][x]= ' ';
+      reDrawGuess();
+    } else if (guessTable[y][x] === 'X' && guessTable[y - 1][x] === '*') {
+      guessTable[y][x] = ' ';
+      guessTable[y - 1][x] = 'X';
+      reDrawGuess();
+      guessTable[y - 1][x] = guess();
+      reDrawGuess();
+    }
+  }
+  y--;
+}
+
+
+const moveDown = () => {
+  if (y !== fieldSize - 1 && guessTable[y + 1][x] === ' ') {
+    guessTable[y + 1][x] = 'X';
+    guessTable[y][x] = ' ';
+    y++;
+  }
+}
+
+const moveRight = () => {
+  if (x !== fieldSize - 1 && guessTable[y][x + 1] === ' ') {
+    guessTable[y][x + 1] = 'X';
+    guessTable[y][x] = ' ';
+    x++;
+  }
+}
+
+const moveLeft = () => {
+  if (x !== 0 && guessTable[y][x - 1] === ' ') {
+    guessTable[y][x - 1] = 'X';
+    guessTable[y][x] = ' ';
+    x--;
+  }
+}
+
+const reDrawGuess = () => {
+  console.clear();
+  console.log(table.table(guessTable));
+}
+
+const step = () => {
+  while (true) {
+    let direction = readline.question('Where?')
+    if (direction === '[A') {
+      moveUp();
+    } else if (direction === '[B') {
+      moveDown();
+    } else if (direction === '[C') {
+      moveRight();
+    } else if (direction === '[D') {
+      moveLeft();
+    }
+    reDrawGuess();
+  }
 };
+
 
 playField();
 taskNumbers();
+step();
