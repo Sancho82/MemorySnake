@@ -21,3 +21,12 @@ process.stdin.on('keypress', function (key) {
  
 process.stdin.setRawMode(true);
 process.stdin.resume();
+
+if (direction === '[A') {
+  moveUp();
+} else if (direction === '[B') {
+  moveDown();
+} else if (direction === '[C') {
+  moveRight();
+} else if (direction === '[D') {
+  moveLeft();
