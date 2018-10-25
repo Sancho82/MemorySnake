@@ -4,11 +4,12 @@ const keypress = require('keypress');
 
 const tableSize = 7;
 let difficultyLevel = 1;
-const maxDifficultyLevel = 7;
 
 const intro = () => {
   if (difficultyLevel === 1) {
-    console.log('Welcome to Memorysnake!\n Rules of the Game:\n 1. Try to memorise the position of the numbers on the table\n 2. Start game and try to guess the numbers in the correct order\n 3. Use keyboard arrows to navigate.\n 4. Complete all 7 levels to win the game.');
+    rules();
+  } else {
+    proceed();
   }
   while (true) {
     let question1 = readline.question('Are you ready?: ');
@@ -210,9 +211,8 @@ const moveLeft = () => {
 const controller = () => {
   while (true) {
     console.clear();
+    levelDisplayer();
     console.log(table.table(cloneTable));
-    // console.log(difficultyLevel);
-    // console.log(numberCounter);
     let direction = readline.question('?');
     let integer = parseInt(direction);
     if (direction === '[A') {
@@ -228,7 +228,6 @@ const controller = () => {
       if (winCheck(numberCounter)) {
         console.clear();
         console.log(table.table(cloneTable));
-        console.log('Congratulation! Go the next level! \n');
         break;
       }
     } else {
@@ -237,20 +236,44 @@ const controller = () => {
   }
 };
 
+const nullifyer = () => {
+  ascendingNumber = 1;
+  numberCounter = 0;
+  startingTableIndexes = [];
+  startingTable = [];
+  cloneTable = [];
+  x = 0;
+  y = 0;
+};
+
+let rules = () => {
+  console.log('Welcome to Memorysnake!\n Rules of the Game:\n 1. Try to memorise the position of the numbers on the table\n 2. Start game and try to guess the numbers in the correct order\n 3. Use keyboard arrows to navigate.\n 4. Complete all 7 levels to win the game.');
+};
+
+const proceed = () => {
+  console.log('Congratulations! Proceed to the next level!');
+};
+
+const congrats = () => {
+  console.log('Congratulations! You have completed the game!');
+};
+
+const levelDisplayer = () => {
+  console.log('Level ' + difficultyLevel + '/' + tableSize);
+};
+
 const game = () => {
-  while (difficultyLevel <= maxDifficultyLevel) {
+  while (difficultyLevel <= tableSize) {
     tableGenerator();
     startingPointSetter(startingElements.cursor);
     numberPusher();
     intro();
     controller();
     difficultyLevel++;
-    ascendingNumber = 1;
-    numberCounter = 0;
-    startingTableIndexes = [];
-    startingTable = [];
-    cloneTable = [];
+    // difficultySetter();
+    nullifyer();
   }
+  congrats();
 };
 
 game();
