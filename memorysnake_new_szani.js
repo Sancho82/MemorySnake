@@ -41,8 +41,7 @@ let startingElements = {
   brush: '█',
   star: '*',
   cursor: 'X',
-  empty: ' ',
-  number: 0
+  empty: ' '
 };
 let startingTable = [];
 let cloneTable = [];
@@ -50,16 +49,9 @@ let cloneTable = [];
 const startingTableGenerator = () => {
   for (let i = 0; i < mapSize; i++) {
     startingTable.push([]);
-    for (let j = 0; j < mapSize; j++) {
-      startingTable[i].push(startingElements.brush);
-    }
-  }
-};
-
-const cloneTableGenerator = () => {
-  for (let i = 0; i < mapSize; i++) {
     cloneTable.push([]);
     for (let j = 0; j < mapSize; j++) {
+      startingTable[i].push(startingElements.brush);
       cloneTable[i].push(startingElements.brush);
     }
   }
@@ -73,27 +65,40 @@ const placeChecker = (a, b) => {
   }
 };
 
-let c = 1;
+let ascendingNumber = 1;
 let startingTableIndexes = [];
 
+const getRndInteger = (min, max) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
 const numberPusher = () => {
-  while (c <= difficultyLevel) {
-    let a = Math.floor(Math.random() * mapSize);
-    let b = Math.floor(Math.random() * mapSize);
-    if ((a !== 0 || b !== 0) && placeChecker(a, b)) {
-      startingTable[a][b] = c;
-      startingTableIndexes.push(b, a);
-      cloneTable[a][b] = startingElements.empty;
-      c++;
-    } else {
-      numberPusher();
+  while (ascendingNumber <= difficultyLevel) {
+    let y = getRndInteger(0, mapSize);
+    let x = getRndInteger(0, mapSize);
+    if ((y !== 0 || x !== 0) && placeChecker(y, x)) {
+      startingTable[y][x] = ascendingNumber;
+      startingTableIndexes.push(y, x);
+      cloneTable[y][x] = startingElements.empty;
+      ascendingNumber++;
     }
   }
 };
 
+let numberCounter = 0;
+
 const equalityChecker = () => {
   let guess = readline.question('Type in your guess: ');
-  if (parseInt(guess) === startingTable[x][y]) {
+  if (parseInt(guess) > 0 && parseInt(guess) < 10 && parseInt(guess) === startingTable[x][y]) {
+    numberCounter++;
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const isWin = (integerNumber) => {
+  if (integerNumber === (startingTableIndexes.length / 2)) {
     return true;
   } else {
     return false;
@@ -182,7 +187,6 @@ const gamePlay = () => {
 const game = () => {
   difficultySetter();
   startingTableGenerator();
-  cloneTableGenerator();
   startingPointSetter(startingElements.cursor);
   numberPusher();
   intro();
