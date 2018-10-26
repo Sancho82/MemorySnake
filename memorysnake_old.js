@@ -1,6 +1,5 @@
 const table = require('table');
 const readline = require('readline-sync');
-const keypress = require('keypress');
 
 const tableSize = 7;
 let difficultyLevel = 1;
@@ -69,7 +68,6 @@ const placeChecker = (a, b) => {
 };
 
 let ascendingNumber = 1;
-let startingTableIndexes = [];
 
 const getRndInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
@@ -81,7 +79,6 @@ const numberPusher = () => {
     let x = getRndInteger(0, tableSize);
     if ((y !== 0 || x !== 0) && placeChecker(y, x)) {
       startingTable[y][x] = ascendingNumber;
-      startingTableIndexes.push(y, x);
       cloneTable[y][x] = startingElements.empty;
       ascendingNumber++;
     }
@@ -254,7 +251,6 @@ const levelDisplayer = () => {
 const nullifyer = () => {
   ascendingNumber = 1;
   numberCounter = 0;
-  startingTableIndexes = [];
   startingTable = [];
   cloneTable = [];
   x = 0;
