@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "memorysnake",
   "version": "1.0.0",
@@ -23,3 +24,30 @@
     "table": "^5.1.0"
   }
 }
+=======
+{
+  "name": "memorysnake",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "run": "",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sancho82/MemorySnake.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sancho82/MemorySnake/issues"
+  },
+  "homepage": "https://github.com/Sancho82/MemorySnake#readme",
+  "dependencies": {
+    "keypress": "^0.2.1",
+    "readline-sync": "^1.4.9",
+    "table": "^5.1.0"
+  }
+}
+>>>>>>> szani

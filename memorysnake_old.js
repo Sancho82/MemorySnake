@@ -1,6 +1,5 @@
 const table = require('table');
 const readline = require('readline-sync');
-const keypress = require('keypress');
 
 const tableSize = 7;
 let difficultyLevel = 1;
@@ -69,7 +68,6 @@ const placeChecker = (a, b) => {
 };
 
 let ascendingNumber = 1;
-let startingTableIndexes = [];
 
 const getRndInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
@@ -81,7 +79,6 @@ const numberPusher = () => {
     let x = getRndInteger(0, tableSize);
     if ((y !== 0 || x !== 0) && placeChecker(y, x)) {
       startingTable[y][x] = ascendingNumber;
-      startingTableIndexes.push(y, x);
       cloneTable[y][x] = startingElements.empty;
       ascendingNumber++;
     }
@@ -226,6 +223,7 @@ const controller = () => {
       equalityChecker(integer);
       if (winCheck(numberCounter)) {
         console.clear();
+        levelDisplayer();
         console.log(table.table(cloneTable));
         break;
       }
@@ -236,7 +234,7 @@ const controller = () => {
 };
 
 let rules = () => {
-  console.log('Welcome to Memorysnake!\n Rules of the Game:\n 1. Try to memorise the position of the numbers on the table\n 2. Start game and try to guess the numbers in the correct order\n 3. Use keyboard arrows to navigate.\n 4. Complete all 7 levels to win the game.');
+  console.log('Welcome to Memorysnake!\n Rules of the Game:\n 1. Try to memorise the position of the numbers on the table.\n 2. Start game and try to guess the numbers in the correct order.\n 3. Use keyboard arrows to navigate.\n 4. Complete all 7 levels to win the game.');
 };
 
 const proceed = () => {
@@ -254,7 +252,6 @@ const levelDisplayer = () => {
 const nullifyer = () => {
   ascendingNumber = 1;
   numberCounter = 0;
-  startingTableIndexes = [];
   startingTable = [];
   cloneTable = [];
   x = 0;

@@ -1,10 +1,6 @@
 const table = require('table');
 const readline = require('readline');
 const readlinesync = require('readline-sync');
-const keypress = require('keypress');
-// keypress(process.stdin);
-// process.stdin.setRawMode(true);
-// process.stdin.resume();
 
 const tableSize = 7;
 let difficultyLevel = 1;
@@ -71,7 +67,6 @@ const placeChecker = (a, b) => {
 };
 
 let ascendingNumber = 1;
-let startingTableIndexes = [];
 
 const getRndInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
@@ -83,7 +78,6 @@ const numberPusher = () => {
     let x = getRndInteger(0, tableSize);
     if ((y !== 0 || x !== 0) && placeChecker(y, x)) {
       startingTable[y][x] = ascendingNumber;
-      startingTableIndexes.push(y, x);
       cloneTable[y][x] = startingElements.empty;
       ascendingNumber++;
     }
@@ -113,8 +107,7 @@ const numberChecker = (integer) => {
 
 const levelUp = (integer) => {
   if (numberChecker(parseInt(integer))) {
-    if (equalityChecker(parseInt(integer))) {
-    }
+    equalityChecker(parseInt(integer));
   }
 };
 
@@ -128,7 +121,10 @@ const winCheck = (integer) => {
 
 const isWin = (integer) => {
   if (winCheck(integer)) {
+    process.stdin.setRawMode(false);
+    // process.stdin.pause();
     proceed();
+    process.exit(1);
   }
 };
 
@@ -229,6 +225,7 @@ const controller = () => {
   console.log(table.table(cloneTable));
   readline.emitKeypressEvents(process.stdin);
   process.stdin.setRawMode(true);
+  process.stdin.resume();
   process.stdin.on('keypress', (str, key) => {
     if (key.name === 'up') {
       moveUp();
@@ -246,9 +243,8 @@ const controller = () => {
     console.clear();
     levelDisplayer();
     console.log(table.table(cloneTable));
+    isWin(numberCounter);
   });
-  isWin(numberCounter);
-  process.stdin.resume();
 };
 
 let rules = () => {
@@ -271,7 +267,6 @@ const levelDisplayer = () => {
 const nullifyer = () => {
   ascendingNumber = 1;
   numberCounter = 0;
-  startingTableIndexes = [];
   startingTable = [];
   cloneTable = [];
   x = 0;
@@ -279,17 +274,16 @@ const nullifyer = () => {
 };
 
 const game = async () => {
-  // while (difficultyLevel <= tableSize) {
+  while (difficultyLevel <= tableSize) {
     tableGenerator();
     startingPointSetter(startingElements.cursor);
     numberPusher();
     intro();
     controller();
-    //console.log('Happy');
-    // difficultyLevel++;
-    // nullifyer();
-  // }
-  // congrats();
+    difficultyLevel++;
+    nullifyer();
+  }
+  congrats();
 };
 
 game();
