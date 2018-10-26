@@ -223,6 +223,7 @@ const controller = () => {
       equalityChecker(integer);
       if (winCheck(numberCounter)) {
         console.clear();
+        levelDisplayer();
         console.log(table.table(cloneTable));
         break;
       }
@@ -233,7 +234,7 @@ const controller = () => {
 };
 
 let rules = () => {
-  console.log('Welcome to Memorysnake!\n Rules of the Game:\n 1. Try to memorise the position of the numbers on the table\n 2. Start game and try to guess the numbers in the correct order\n 3. Use keyboard arrows to navigate.\n 4. Complete all 7 levels to win the game.');
+  console.log('Welcome to Memorysnake!\n Rules of the Game:\n 1. Try to memorise the position of the numbers on the table.\n 2. Start game and try to guess the numbers in the correct order.\n 3. Use keyboard arrows to navigate.\n 4. Complete all 7 levels to win the game.');
 };
 
 const proceed = () => {
