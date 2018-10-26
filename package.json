@@ -2,8 +2,9 @@
   "name": "memorysnake",
   "version": "1.0.0",
   "description": "",
-  "main": "playing_field.js",
+  "main": "",
   "scripts": {
+    "run": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

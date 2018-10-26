@@ -1,10 +1,6 @@
 const table = require('table');
-const readline = require('readline');
-const readlinesync = require('readline-sync');
+const readline = require('readline-sync');
 const keypress = require('keypress');
-// keypress(process.stdin);
-// process.stdin.setRawMode(true);
-// process.stdin.resume();
 
 const tableSize = 7;
 let difficultyLevel = 1;
@@ -12,14 +8,16 @@ let difficultyLevel = 1;
 const intro = () => {
   if (difficultyLevel === 1) {
     rules();
+  } else {
+    proceed();
   }
   while (true) {
-    let question1 = readlinesync.question('Are you ready?: ');
+    let question1 = readline.question('Are you ready?: ');
     if (question1 === 'y') {
       console.clear();
       console.log('Here are the numbers you need to guess.');
       console.log(table.table(startingTable));
-      let question2 = readlinesync.question('Ready to proceed?: ');
+      let question2 = readline.question('Ready to proceed?: ');
       if (question2 === 'y') {
         break;
       } else if (question2 === 'n') {
@@ -63,7 +61,7 @@ const tableGenerator = () => {
 };
 
 const placeChecker = (a, b) => {
-  if ((startingTable[a][b] === startingElements.brush)) {
+  if (startingTable[a][b] === startingElements.brush) {
     return true;
   } else {
     return false;
@@ -96,7 +94,6 @@ const equalityChecker = (integer) => {
   if (integer === startingTable[y][x] && integer === numberCounter + 1) {
     cloneTable[y][x] = startingTable[y][x];
     numberCounter++;
-    console.log('Működök!');
   } else {
     console.log('Bad Choice! Game Over!');
     process.exit(1);
@@ -111,24 +108,11 @@ const numberChecker = (integer) => {
   }
 };
 
-const levelUp = (integer) => {
-  if (numberChecker(parseInt(integer))) {
-    if (equalityChecker(parseInt(integer))) {
-    }
-  }
-};
-
 const winCheck = (integer) => {
-  if (integer === difficultyLevel + 2) {
+  if (integer === (difficultyLevel + 2)) {
     return true;
   } else {
     return false;
-  }
-};
-
-const isWin = (integer) => {
-  if (winCheck(integer)) {
-    proceed();
   }
 };
 
@@ -224,31 +208,31 @@ const moveLeft = () => {
 };
 
 const controller = () => {
-  console.clear();
-  levelDisplayer();
-  console.log(table.table(cloneTable));
-  readline.emitKeypressEvents(process.stdin);
-  process.stdin.setRawMode(true);
-  process.stdin.on('keypress', (str, key) => {
-    if (key.name === 'up') {
-      moveUp();
-    } else if (key.name === 'down') {
-      moveDown();
-    } else if (key.name === 'right') {
-      moveRight();
-    } else if (key.name === 'left') {
-      moveLeft();
-    } else if (key.name === 'q') {
-      process.exit(1);
-    } else {
-      levelUp(key.name);
-    }
+  while (true) {
     console.clear();
     levelDisplayer();
     console.log(table.table(cloneTable));
-  });
-  isWin(numberCounter);
-  process.stdin.resume();
+    let direction = readline.question('?');
+    let integer = parseInt(direction);
+    if (direction === '[A') {
+      moveUp();
+    } else if (direction === '[B') {
+      moveDown();
+    } else if (direction === '[C') {
+      moveRight();
+    } else if (direction === '[D') {
+      moveLeft();
+    } else if (numberChecker(integer)) {
+      equalityChecker(integer);
+      if (winCheck(numberCounter)) {
+        console.clear();
+        console.log(table.table(cloneTable));
+        break;
+      }
+    } else {
+      console.log('???');
+    }
+  }
 };
 
 let rules = () => {
@@ -261,7 +245,6 @@ const proceed = () => {
 
 const congrats = () => {
   console.log('Congratulations! You have completed the game!');
-  process.exit(1);
 };
 
 const levelDisplayer = () => {
@@ -278,18 +261,17 @@ const nullifyer = () => {
   y = 0;
 };
 
-const game = async () => {
-  // while (difficultyLevel <= tableSize) {
+const game = () => {
+  while (difficultyLevel <= tableSize) {
     tableGenerator();
     startingPointSetter(startingElements.cursor);
     numberPusher();
     intro();
     controller();
-    //console.log('Happy');
-    // difficultyLevel++;
-    // nullifyer();
-  // }
-  // congrats();
+    difficultyLevel++;
+    nullifyer();
+  }
+  congrats();
 };
 
 game();
