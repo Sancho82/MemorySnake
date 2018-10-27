@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/Sancho82/MemorySnake#readme",
   "dependencies": {
+    "cfonts": "^2.2.2",
+    "chalk": "^2.4.1",
     "keypress": "^0.2.1",
+    "play": "^0.5.0",
     "readline-sync": "^1.4.9",
     "table": "^5.1.0"
   }

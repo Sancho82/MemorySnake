@@ -1,6 +1,6 @@
 const table = require('table');
-const readline = require('readline');
 const readlinesync = require('readline-sync');
+const keypress = require('keypress');
 
 const tableSize = 7;
 let difficultyLevel = 1;
@@ -219,14 +219,21 @@ const moveLeft = () => {
   }
 };
 
+const getTimestamp = () => Math.round(new Date().getTime() / 1000);
+let lastKeyPress = getTimestamp();
+
 const controller = () => {
   console.clear();
   levelDisplayer();
   console.log(table.table(cloneTable));
-  readline.emitKeypressEvents(process.stdin);
+  keypress(process.stdin);
   process.stdin.setRawMode(true);
   process.stdin.resume();
   process.stdin.on('keypress', (str, key) => {
+    let currentKeyPress = getTimestamp();
+    if (lastKeyPress + 1 > currentKeyPress) return;
+    lastKeyPress = currentKeyPress;
+    console.log(key.name);
     if (key.name === 'up') {
       moveUp();
     } else if (key.name === 'down') {
@@ -273,17 +280,17 @@ const nullifyer = () => {
   y = 0;
 };
 
-const game = async () => {
-  while (difficultyLevel <= tableSize) {
+const game = () => {
+  // while (difficultyLevel <= tableSize) {
     tableGenerator();
     startingPointSetter(startingElements.cursor);
     numberPusher();
     intro();
     controller();
-    difficultyLevel++;
-    nullifyer();
-  }
-  congrats();
+  // difficultyLevel++;
+  // nullifyer();
+  // }
+  // congrats();
 };
 
 game();
