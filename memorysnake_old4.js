@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const CFonts = require('cfonts');
-const play = require('play');
+// const play = require('play');
 
 const intros = require('./intros');
 const controller = require('./controller');
@@ -145,23 +145,23 @@ const moveUp = () => {
     if ((cloneTable[y][x] === startingElements.cursor) && (cloneTable[y - 1][x] === startingElements.empty)) {
       cloneTable[y - 1][x] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if ((cloneTable[y][x] === startingElements.star) && (cloneTable[y - 1][x] === startingElements.empty)) {
       cloneTable[y - 1][x] = startingElements.star;
       cloneTable[y][x] = startingElements.empty;
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if ((cloneTable[y][x] === startingElements.star) && (cloneTable[y - 1][x] === startingTable[y - 1][x])) {
       cloneTable[y - 1][x] = startingElements.cursor;
       cloneTable[y][x] = startingElements.empty;
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y - 1][x] === startingTable[y - 1][x])) {
       cloneTable[y - 1][x] = startingElements.cursor;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y - 1][x] === startingElements.empty)) {
       cloneTable[y - 1][x] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     }
     y--;
   }
@@ -172,23 +172,23 @@ const moveDown = () => {
     if ((cloneTable[y][x] === startingElements.cursor) && (cloneTable[y + 1][x] === startingElements.empty)) {
       cloneTable[y + 1][x] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if ((cloneTable[y][x] === startingElements.star) && (cloneTable[y + 1][x] === startingElements.empty)) {
       cloneTable[y + 1][x] = startingElements.star;
       cloneTable[y][x] = startingElements.empty;
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if ((cloneTable[y][x] === startingElements.star) && (cloneTable[y + 1][x] === startingTable[y + 1][x])) {
       cloneTable[y + 1][x] = startingElements.cursor;
       cloneTable[y][x] = startingElements.empty;
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y + 1][x] === startingTable[y + 1][x])) {
       cloneTable[y + 1][x] = startingElements.cursor;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y + 1][x] === startingElements.empty)) {
       cloneTable[y + 1][x] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     }
     y++;
   }
@@ -199,23 +199,23 @@ const moveRight = () => {
     if ((cloneTable[y][x] === startingElements.cursor) && (cloneTable[y][x + 1] === startingElements.empty)) {
       cloneTable[y][x + 1] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if ((cloneTable[y][x] === startingElements.star) && (cloneTable[y][x + 1] === startingElements.empty)) {
       cloneTable[y][x + 1] = startingElements.star;
       cloneTable[y][x] = startingElements.empty;
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if ((cloneTable[y][x] === startingElements.star) && (cloneTable[y][x + 1] === startingTable[y][x + 1])) {
       cloneTable[y][x + 1] = startingElements.cursor;
       cloneTable[y][x] = startingElements.empty;
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y][x + 1] === startingTable[y][x + 1])) {
       cloneTable[y][x + 1] = startingElements.cursor;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y][x + 1] === startingElements.empty)) {
       cloneTable[y][x + 1] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     }
     x++;
   }
@@ -226,23 +226,23 @@ const moveLeft = () => {
     if ((cloneTable[y][x] === startingElements.cursor) && (cloneTable[y][x - 1] === startingElements.empty)) {
       cloneTable[y][x - 1] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if ((cloneTable[y][x] === startingElements.star) && (cloneTable[y][x - 1] === startingElements.empty)) {
       cloneTable[y][x - 1] = startingElements.star;
       cloneTable[y][x] = startingElements.empty;
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if ((cloneTable[y][x] === startingElements.star) && (cloneTable[y][x - 1] === startingElements.brush)) {
       cloneTable[y][x - 1] = startingElements.cursor;
       cloneTable[y][x] = startingElements.empty;
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y][x - 1] === startingTable[y][x - 1])) {
       cloneTable[y][x - 1] = startingElements.cursor;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     } else if (cloneTable[y][x] !== Object.values(startingElements) && (cloneTable[y][x - 1] === startingElements.empty)) {
       cloneTable[y][x - 1] = startingElements.star;
       cloneTable[y][x] = startingTable[y][x];
-      play.sound('./step.mp3');
+      // play.sound('./step.mp3');
     }
     x--;
   }
@@ -268,7 +268,7 @@ const controller = () => {
       if (integer === startingTable[y][x] && integer === numberCounter + 1) {
         cloneTable[y][x] = startingTable[y][x];
         numberCounter++;
-        play.sound('./woho.mp3');
+        // play.sound('./woho.mp3');
       } else {
         console.log('Bad order! The table looked like this:');
         console.log(chalk.bgRgb(213, 255, 175)(table.table(startingTable)));
@@ -292,7 +292,7 @@ const game = () => {
     creators.tableGenerator();
     creators.numberPusher();
     intros.intro();
-    controller();
+    controller.controller();
     difficultyLevel++;
     creators.nullifyer();
   }
@@ -308,5 +308,5 @@ const game = () => {
   });
 };
 
-play.sound('./popcorn.mp3');
+// play.sound('./popcorn.mp3');
 game();

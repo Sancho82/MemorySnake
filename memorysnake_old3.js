@@ -15,8 +15,8 @@ let cloneTable = [];
 let startingElements = {
   brush: ' ',
   star: chalk.red('*'),
-  cursor: chalk.red('█'),
-  empty: 'X'
+  cursor: chalk.red.bold('█'),
+  empty: chalk.blue('X')
 };
 
 const intro = () => {
@@ -31,62 +31,62 @@ const intro = () => {
       space: true,
       maxLength: '0'
     });
-    console.log(chalk.bgRgb('213', '255', '175').inverse(' •••••••••••• Rules of the Game ••••••••••••\n'));
-    console.log(chalk.bgRgb('213', '255', '175')(' -> Try to memorise the position of the numbers on the table.\n'));
-    console.log(chalk.bgRgb('213', '255', '175')(' -> Start game and try to guess the numbers in the correct order.\n'));
-    console.log(chalk.bgRgb('213', '255', '175')(' -> Use keyboard arrows to navigate.\n'));
-    console.log(chalk.bgRgb('213', '255', '175')(' -> Complete all 7 levels to win the game.\n'));
+    console.log(chalk.bold.bgRgb('0', '0', '128').inverse(' •••••••••••• Rules of the Game ••••••••••••\n'));
+    console.log(chalk.bold.bgRgb('0', '0', '128').inverse(' -> Try to memorise the position of the numbers on the table.\n'));
+    console.log(chalk.bold.bgRgb('0', '0', '128').inverse(' -> Start game and try to guess the numbers in the correct order.\n'));
+    console.log(chalk.bold.bgRgb('0', '0', '128').inverse(' -> Use keyboard arrows to navigate.\n'));
+    console.log(chalk.bold.bgRgb('0', '0', '128').inverse(' -> Complete all 7 levels to win the game.\n'));
   } else {
-    console.log(chalk.red('Cool! Proceed to the next level!\n'));
+    console.log(chalk.green.bold('Cool! Proceed to the next level!\n'));
   }
   while (true) {
-    let question1 = readline.question('Are you ready? [y/n]: ');
+    let question1 = readline.question(chalk.green.bold('Are you ready? [y/n]: '));
     if (question1 === 'y') {
       console.clear();
-      console.log(chalk.bgKeyword('orange')('Level ' + difficultyLevel + '/' + tableSize + '\n'));
-      console.log(chalk.bgRgb(213, 255, 175)(table.table(startingTable)));
-      let question2 = readline.question('Ready to proceed? [y/n]: ');
+      console.log(chalk.bgRgb('0', '0', '128').inverse('Level ' + difficultyLevel + '/' + tableSize + '\n'));
+      console.log(chalk.bgRgb('0', '0', '128').inverse(table.table(startingTable)));
+      let question2 = readline.question(chalk.green.bold('Ready to proceed? [y/n]: '));
       if (question2 === 'y') {
         break;
       } else if (question2 === 'n') {
-        console.log('Ok. Bye!');
+        console.log(chalk.red.bold('Ok. Bye!'));
         process.exit(1);
       } else {
-        console.log('Sorry, I do not understand. Please type "y" or "n"!');
+        console.log(chalk.red.bold('Sorry, I do not understand. Please type "y" or "n"!'));
       }
     } else if (question1 === 'n') {
-      console.log('Ok. Bye!');
+      console.log(chalk.red.bold('Ok. Bye!'));
       process.exit(1);
     } else {
-      console.log('Sorry, I do not understand. Please type "y" or "n"!');
+      console.log(chalk.red.bold('Sorry, I do not understand. Please type "y" or "n"!'));
     }
   }
 };
 
 const intro2 = () => {
   while (true) {
-    let question1 = readline.question('Are you ready? [y/n]: ');
+    let question1 = readline.question(chalk.green.bold('Are you ready? [y/n]: '));
     if (question1 === 'y') {
       nullifyer();
       tableGenerator();
       numberPusher();
       console.clear();
-      console.log(chalk.bgKeyword('orange')('Level ' + difficultyLevel + '/' + tableSize + '\n'));
-      console.log(chalk.bgRgb(213, 255, 175)(table.table(startingTable)));
-      let question2 = readline.question('Ready to proceed?: ');
+      console.log(chalk.bgRgb('0', '0', '128').inverse('Level ' + difficultyLevel + '/' + tableSize + '\n'));
+      console.log(chalk.bgRgb('0', '0', '128').inverse(table.table(startingTable)));
+      let question2 = readline.question(chalk.green.bold('Ready to proceed?: '));
       if (question2 === 'y') {
         break;
       } else if (question2 === 'n') {
-        console.log('Ok. Bye!');
+        console.log(chalk.red.bold('Ok. Bye!'));
         process.exit(1);
       } else {
-        console.log(chalk.red('Sorry, I do not understand. Please type "y" or ""n"!'));
+        console.log(chalk.red.bold('Sorry, I do not understand. Please type "y" or ""n"!'));
       }
     } else if (question1 === 'n') {
-      console.log('Ok. Bye!');
+      console.log(chalk.red.bold('Ok. Bye!'));
       process.exit(1);
     } else {
-      console.log(chalk.red('Sorry, I do not understand. Please type "y" or "n"!'));
+      console.log(chalk.red.bold('Sorry, I do not understand. Please type "y" or "n"!'));
     }
   }
 };
@@ -247,8 +247,8 @@ const moveLeft = () => {
 const controller = () => {
   while (true) {
     console.clear();
-    console.log(chalk.bgKeyword('orange')('Level ' + difficultyLevel + '/' + tableSize + '\n'));
-    console.log(chalk.bgRgb(213, 255, 175)(table.table(cloneTable)));
+    console.log(chalk.bgRgb('0', '0', '128').inverse('Level ' + difficultyLevel + '/' + tableSize + '\n'));
+    console.log(chalk.bgRgb('0', '0', '128').inverse(table.table(cloneTable)));
     let direction = readline.question('?');
     let integer = parseInt(direction);
     if (direction === '[A') {
@@ -265,18 +265,18 @@ const controller = () => {
         numberCounter++;
         // play.sound('./woho.mp3');
       } else {
-        console.log('Bad order! The table looked like this:');
-        console.log(chalk.bgRgb(213, 255, 175)(table.table(startingTable)));
-        console.log(chalk.red('Restart the Level ' + difficultyLevel + '...'));
+        console.log(chalk.red.bold('Bad order! The table looked like this:'));
+        console.log(chalk.bgRgb('0', '0', '128').inverse(table.table(startingTable)));
+        console.log(chalk.red.bold('Restart Level ' + difficultyLevel + '...'));
         intro2();
       }
       if (integer === (difficultyLevel + 2)) {
         console.clear();
-        console.log(chalk.bgRgb(213, 255, 175)(table.table(cloneTable)));
+        console.log(chalk.bgRgb('0', '0', '128').inverse(table.table(cloneTable)));
         break;
       }
     } else {
-      console.log(chalk.red('Bad key!'));
+      console.log(chalk.red.bold('Bad key!'));
     }
   }
 };

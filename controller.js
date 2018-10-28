@@ -11,8 +11,8 @@ module.exports = {
   controller: () => {
     while (true) {
       console.clear();
-      console.log(chalk.bgKeyword('orange')('Level ' + memorysnake.difficultyLevel + '/' + memorysnake.tableSize + '\n'));
-      console.log(chalk.bgRgb(213, 255, 175)(table.table(memorysnake.cloneTable)));
+      console.log(chalk.bgRgb('0', '0', '128').inverse('Level ' + memorysnake.difficultyLevel + '/' + memorysnake.tableSize + '\n'));
+      console.log(chalk.bgRgb('0', '0', '128').inverse(table.table(memorysnake.cloneTable)));
       let direction = readline.question('?');
       let integer = parseInt(direction);
       if (direction === '[A') {
@@ -29,18 +29,18 @@ module.exports = {
           memorysnake.numberCounter++;
           // play.sound('./woho.mp3');
         } else {
-          console.log('Bad order! The table looked like this:');
-          console.log(chalk.bgRgb(213, 255, 175)(table.table(memorysnake.startingTable)));
-          console.log(chalk.red('Restart the Level ' + memorysnake.difficultyLevel + '...'));
+          console.log(chalk.red.bold('Bad order! The table looked like this:'));
+          console.log(chalk.bgRgb('0', '0', '128').inverse(table.table(memorysnake.startingTable)));
+          console.log(chalk.red.bold('Restart Level ' + memorysnake.difficultyLevel + '...'));
           intros.intro2();
         }
         if (integer === (memorysnake.difficultyLevel + 2)) {
           console.clear();
-          console.log(chalk.bgRgb(213, 255, 175)(table.table(memorysnake.cloneTable)));
+          console.log(chalk.bgRgb('0', '0', '128').inverse(table.table(memorysnake.cloneTable)));
           break;
         }
       } else {
-        console.log(chalk.red('Bad key!'));
+        console.log(chalk.red.bold('Bad key!'));
       }
     }
   }

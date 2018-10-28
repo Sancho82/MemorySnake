@@ -11,8 +11,8 @@ module.exports = {
   startingElements: () => {
     brush: () => {return ' ';},
     star: () => {return chalk.red('*');},
-    cursor: () => {return chalk.red('█');},
-    empty: () => {return 'X';}
+    cursor: () => {return chalk.red.bold('█');},
+    empty: () => {return chalk.blue('X');}
   };
   */
 };
