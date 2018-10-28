@@ -5,6 +5,7 @@ const CFonts = require('cfonts');
 const intros = require('./intros');
 const controller = require('./controller');
 const creators = require('./creators');
+const moves = require('./moves');
 
 const tableSize = 7;
 let difficultyLevel = 1;
@@ -14,6 +15,7 @@ let x = 0;
 let y = 0;
 let startingTable = [];
 let cloneTable = [];
+
 let startingElements = {
   brush: ' ',
   star: chalk.red('*'),

@@ -12,6 +12,7 @@ let x = 0;
 let y = 0;
 let startingTable = [];
 let cloneTable = [];
+
 let startingElements = {
   brush: ' ',
   star: chalk.red('*'),
