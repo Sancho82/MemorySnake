@@ -2,7 +2,6 @@ const memorysnake = require('./memorysnake_old4');
 const creators = require('creators');
 
 module.exports = {
-
   tableGenerator: () => {
     for (let i = 0; i < memorysnake.tableSize; i++) {
       memorysnake.startingTable.push([]);
