@@ -71,7 +71,6 @@ const intro2 = () => {
     if (question1 === 'y') {
       nullifyer();
       tableGenerator();
-      startingPointSetter(startingElements.cursor);
       numberPusher();
       console.clear();
       console.log(chalk.bgKeyword('orange')('Level ' + difficultyLevel + '/' + tableSize + '\n'));
@@ -95,10 +94,6 @@ const intro2 = () => {
 };
 */
 /*
-const startingPointSetter = (a) => {
-  cloneTable[0][0] = a;
-};
-
 const tableGenerator = () => {
   for (let i = 0; i < tableSize; i++) {
     startingTable.push([]);
@@ -123,6 +118,7 @@ const getRandomInteger = (min, max) => {
 };
 
 const numberPusher = () => {
+    cloneTable[0][0] = startingElements.cursor
   while (ascendingNumber <= difficultyLevel + 2) {
     let y = getRandomInteger(0, tableSize);
     let x = getRandomInteger(0, tableSize);
@@ -274,7 +270,9 @@ const controller = () => {
         numberCounter++;
         play.sound('./woho.mp3');
       } else {
-        console.log(chalk.red('Bad order! Restart the Level ' + difficultyLevel + '...'));
+        console.log('Bad order! The table looked like this:');
+        console.log(chalk.bgRgb(213, 255, 175)(table.table(startingTable)));
+        console.log(chalk.red('Restart the Level ' + difficultyLevel + '...'));
         intro2();
       }
       if (integer === (difficultyLevel + 2)) {
@@ -292,7 +290,6 @@ const controller = () => {
 const game = () => {
   while (difficultyLevel <= 2) {
     creators.tableGenerator();
-    creators.startingPointSetter(startingElements.cursor);
     creators.numberPusher();
     intros.intro();
     controller();

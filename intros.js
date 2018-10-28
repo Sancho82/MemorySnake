@@ -57,7 +57,6 @@ module.exports = {
       if (question1 === 'y') {
         creators.nullifyer();
         creators.tableGenerator();
-        creators.startingPointSetter(memorysnake.startingElements.cursor);
         creators.numberPusher();
         console.clear();
         console.log(chalk.bgKeyword('orange')('Level ' + memorysnake.difficultyLevel + '/' + memorysnake.tableSize + '\n'));

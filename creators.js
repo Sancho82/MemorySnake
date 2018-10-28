@@ -2,9 +2,6 @@ const memorysnake = require('./memorysnake_old4');
 const creators = require('creators');
 
 module.exports = {
-  startingPointSetter: (a) => {
-    memorysnake.cloneTable[0][0] = a;
-  },
 
   tableGenerator: () => {
     for (let i = 0; i < memorysnake.tableSize; i++) {
@@ -30,6 +27,7 @@ module.exports = {
   },
 
   numberPusher: () => {
+    memorysnake.cloneTable[0][0] = memorysnake.startingElements.cursor;
     while (memorysnake.ascendingNumber <= memorysnake.difficultyLevel + 2) {
       let y = creators.getRandomInteger(0, memorysnake.tableSize);
       let x = creators.getRandomInteger(0, memorysnake.tableSize);

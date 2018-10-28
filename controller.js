@@ -29,7 +29,9 @@ module.exports = {
           memorysnake.numberCounter++;
           // play.sound('./woho.mp3');
         } else {
-          console.log(chalk.red('Bad order! Restart the Level ' + memorysnake.difficultyLevel + '...'));
+          console.log('Bad order! The table looked like this:');
+          console.log(chalk.bgRgb(213, 255, 175)(table.table(memorysnake.startingTable)));
+          console.log(chalk.red('Restart the Level ' + memorysnake.difficultyLevel + '...'));
           intros.intro2();
         }
         if (integer === (memorysnake.difficultyLevel + 2)) {
