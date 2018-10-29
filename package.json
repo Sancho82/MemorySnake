@@ -1,9 +1,8 @@
-
 {
   "name": "memorysnake",
   "version": "1.0.0",
   "description": "",
-  "main": "memorysnake.js",
+  "main": "",
   "scripts": {
     "run": "",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,11 +18,11 @@
   },
   "homepage": "https://github.com/Sancho82/MemorySnake#readme",
   "dependencies": {
-    "readline-sync": "^1.4.9",
     "cfonts": "^2.2.2",
     "chalk": "^2.4.1",
     "keypress": "^0.2.1",
     "mpg123": "^0.2.3",
+    "readline-sync": "^1.4.9",
     "sound-player": "^1.0.13",
     "table": "^5.1.0"
   }
