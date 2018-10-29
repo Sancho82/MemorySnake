@@ -22,8 +22,8 @@
     "chalk": "^2.4.1",
     "keypress": "^0.2.1",
     "mpg123": "^0.2.3",
-    "play": "^0.5.0",
     "readline-sync": "^1.4.9",
+    "sound-player": "^1.0.13",
     "table": "^5.1.0"
   }
 }

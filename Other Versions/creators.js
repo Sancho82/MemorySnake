@@ -1,4 +1,4 @@
-const memorysnake = require('./memorysnake');
+const memorysnake = require('./memorysnake_old4');
 
 module.exports = {
   tableGenerator: () => {
@@ -10,10 +10,6 @@ module.exports = {
         memorysnake.cloneTable[i].push(memorysnake.startingElements.brush);
       }
     }
-  },
-
-  startingPointSetter: (a) => {
-    memorysnake.cloneTable[0][0] = a;
   },
 
   placeChecker: (a, b) => {
@@ -28,7 +24,12 @@ module.exports = {
     return Math.floor(Math.random() * (max - min) + min);
   },
 
+  startingPointSetter: (a) => {
+    memorysnake.cloneTable[0][0] = a;
+  },
+
   numberPusher: () => {
+    // memorysnake.cloneTable[0][0] = memorysnake.startingElements.cursor;
     while (memorysnake.ascendingNumber <= memorysnake.difficultyLevel + 2) {
       let y = module.exports.getRandomInteger(0, memorysnake.tableSize);
       let x = module.exports.getRandomInteger(0, memorysnake.tableSize);
@@ -42,7 +43,7 @@ module.exports = {
 
   nullifyer: () => {
     memorysnake.ascendingNumber = 1;
-    module.exports.numberCounter = 0;
+    memorysnake.numberCounter = 0;
     memorysnake.startingTable = [];
     memorysnake.cloneTable = [];
     memorysnake.x = 0;
