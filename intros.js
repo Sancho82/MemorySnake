@@ -2,12 +2,10 @@ const table = require('table');
 const readline = require('readline-sync');
 const chalk = require('chalk');
 const CFonts = require('cfonts');
-
-const memorysnake = require('./memorysnake');
 const creators = require('./creators');
 
 module.exports = {
-  intro: () => {
+  intro: (memorysnake) => {
     if (memorysnake.difficultyLevel === 1) {
       CFonts.say('Welcome to Memorysnake!', {
         font: 'chrome',
@@ -51,14 +49,14 @@ module.exports = {
     }
   },
 
-  intro2: () => {
+  intro2: (memorysnake) => {
     while (true) {
       let question1 = readline.question('Are you ready? [y/n]: ');
       if (question1 === 'y') {
-        creators.nullifyer();
-        creators.tableGenerator();
-        creators.startingPointSetter(memorysnake.startingElements.cursor);
-        creators.numberPusher();
+        creators.nullifyer(memorysnake);
+        creators.tableGenerator(memorysnake);
+        creators.startingPointSetter(memorysnake.startingElements.cursor, memorysnake);
+        creators.numberPusher(memorysnake);
         console.clear();
         console.log(chalk.bgKeyword('orange')('Level ' + memorysnake.difficultyLevel + '/' + memorysnake.tableSize + '\n'));
         console.log(chalk.bgRgb(213, 255, 175)(table.table(memorysnake.startingTable)));
