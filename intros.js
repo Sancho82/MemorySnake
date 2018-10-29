@@ -17,7 +17,7 @@ module.exports = {
         space: true,
         maxLength: '0'
       });
-      console.log(chalk.bgRgb('213', '255', '175').inverse(' •••••••••••• Rules of the Game ••••••••••••\n'));
+      console.log(chalk.bgRgb('213', '255', '175').inverse(' ••••••••••••••••••• Rules of the Game •••••••••••••••••••\n'));
       console.log(chalk.bgRgb('213', '255', '175')(' -> Try to memorise the position of the numbers on the table.\n'));
       console.log(chalk.bgRgb('213', '255', '175')(' -> Start game and try to guess the numbers in the correct order.\n'));
       console.log(chalk.bgRgb('213', '255', '175')(' -> Use keyboard arrows (+ Enter) to navigate.\n'));
